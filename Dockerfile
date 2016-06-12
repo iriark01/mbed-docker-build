@@ -13,6 +13,7 @@ RUN dnf -y remove vim-minimal
 # install packages
 RUN dnf -y install \
 	\
+	sudo \
 	mc \
 	vim \
 	python-pip \
@@ -45,8 +46,11 @@ RUN \
 	ln -s ${CCACHE_BIN} ${CCACHE_DIR}/arm-none-eabi-g++ && \
 	ln -s ${CCACHE_BIN} ${CCACHE_DIR}/arm-none-eabi-c++
 
-# Add default user
+# Add default user and enable sudo access
 RUN useradd -c "mbed Developer" -m mbed
+RUN usermod -aG wheel mbed
+# enabled sudo for mbed user - no password asked!
+COPY sudoers /etc
 
 # configure git
 COPY .gitconfig /home/mbed/
