@@ -1,9 +1,6 @@
 FROM fedora
 MAINTAINER Milosch Meriac <milosch@meriac.com>
 
-# expose SSH port
-EXPOSE 22
-
 # update packages
 # RUN dnf -y update && dnf clean all
 
@@ -29,7 +26,7 @@ RUN dnf -y install \
 	\
 	&& dnf clean all
 
-# install mbed-cli and dependencies 
+# install mbed-cli and dependencies
 RUN \
 	pip install --upgrade pip && \
 	pip install mbed-cli pyelftools && \
